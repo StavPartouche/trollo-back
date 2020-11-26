@@ -27,7 +27,8 @@ async function query(filterBy = {}) {
 async function getById(userId) {
     const collection = await dbService.getCollection('user');
     try {
-        const user = await collection.findOne({ '_id': ObjectId(userId) });
+        userId = (userId === 'guest' || userId === 'kaki' || userId === 'template') ? userId : ObjectId(userId);
+        const user = await collection.findOne({ '_id': userId });
         delete user.password;
         return user;
     } catch (err) {

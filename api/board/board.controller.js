@@ -38,7 +38,6 @@ async function saveBoard(req, res) {
     try {
         var board = req.body;
         const user = req.session.user;
-        if (!user) throw new Error('error: cannot add board');
         board = await boardService.save(board)
         res.send(board)
     } catch (err) {
