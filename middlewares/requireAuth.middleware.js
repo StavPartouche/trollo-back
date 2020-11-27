@@ -1,7 +1,8 @@
 const logger = require('../services/logger.service')
 
 async function requireAuth(req, res, next) {
-  if (!req.session || !req.session.user) {
+  const board = req.body;
+  if (req.session && req.session.user && req.session.user === board.creator ) {
     res.status(401).end('Unauthorized!');
     return;
   }
