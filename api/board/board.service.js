@@ -8,7 +8,7 @@ async function query(filterBy = {}) {
     const collection = await dbService.getCollection('board');
     try {
         const boards = await collection.find(criteria).toArray();
-        boards.sort((a, b) => b.updatedAt < a.updatedAt);
+        boards.sort((a, b) => b.updatedAt - a.updatedAt);
         return boards;
     } catch (err) {
         console.log('ERROR: cannot find boards');
@@ -42,7 +42,7 @@ async function save(board) {
     board._id = (board._id) ? ObjectId(board._id) : new ObjectId();
     board.updatedAt = Date.now();
     try {
-        await collection.update({ _id: board._id }, { $set: board }, { upsert: true });
+        await collection.updateOne({ _id: board._id }, { $set: board }, { upsert: true });
         return board;
     } catch (err) {
         console.log(`ERROR: cannot save board`);
@@ -58,7 +58,6 @@ function _buildCriteria(filterBy) {
         }];
         if (filterBy.user !== 'guest') criteria['$or'].push({ members: filterBy.user });
     }
-    // console.log(criteria);
     return criteria;
 }
 

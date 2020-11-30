@@ -4,7 +4,6 @@ module.exports = connectSockets;
 function connectSockets(io) {
     io.on('connection', socket => {
         socket.on('user connect', user => {
-            console.log(user);
             socket.user = user;
             console.log(socket.user.userName + ' connected')
         })
@@ -13,7 +12,8 @@ function connectSockets(io) {
                 socket.leave(socket.boardId);
                 socket.boardId = '';
             }
-            console.log(socket.user.userName + ' left board')
+            const userName = (socket.user) ? socket.user.userName : 'guest';
+            console.log(userName + ' left board')
             socket.user = null;
         })
         socket.on('update board', () => {
@@ -25,7 +25,6 @@ function connectSockets(io) {
             }
             socket.join(boardId);
             socket.boardId = boardId;
-            // console.log(board) 
             io.to(boardId).emit('user entered board', socket.user)
         });
         socket.on('disconnect', () => {

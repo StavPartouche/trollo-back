@@ -23,7 +23,6 @@ async function getBoard(req, res) {
     }
 }
 
-// Only if the user is the creator
 async function deleteBoard(req, res) {
     try {
         await boardService.remove(req.params.id)
