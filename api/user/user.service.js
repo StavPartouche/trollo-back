@@ -24,11 +24,12 @@ async function query(filterBy = {}) {
     }
 }
 
-async function getById(userId) {
+async function getById(userId = 'guest') {
     const collection = await dbService.getCollection('user');
     try {
-        userId = (userId === 'guest' || userId === 'kaki' || userId === 'template') ? userId : ObjectId(userId);
-        const user = await collection.findOne({ '_id': userId });
+        userId = (userId.length < 12) ? userId : ObjectId(userId);
+        const user = (userId !== 'guest') ? await collection.findOne({ '_id': userId }) : 
+        { _id: 'guest', userName: 'guest', fullName: 'guest', imgUrl: '', password: '' };
         delete user.password;
         return user;
     } catch (err) {
@@ -49,7 +50,7 @@ async function getByUserName(userName) {
 
 async function update(user) {
     const collection = await dbService.getCollection('user');
-    user._id = ObjectId(user._id);
+    const userId = (userId.length < 12) ? userId : ObjectId(userId);
 
     try {
         await collection.replaceOne({ _id: user._id }, { $set: user });

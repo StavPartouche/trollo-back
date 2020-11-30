@@ -58,7 +58,7 @@ function _buildCriteria(filterBy) {
         }];
         if (filterBy.user !== 'guest') criteria['$or'].push({ members: filterBy.user });
     }
-    console.log(criteria);
+    // console.log(criteria);
     return criteria;
 }
 
