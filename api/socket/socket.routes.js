@@ -3,11 +3,11 @@ module.exports = connectSockets;
 
 function connectSockets(io) {
     io.on('connection', socket => {
-        socket.on('user connect', user => {
+        socket.on('userConnect', user => {
             socket.user = user;
             console.log(socket.user.userName + ' connected')
         })
-        socket.on('user left board', () => {
+        socket.on('leaveBoard', () => {
             if (socket.boardId) {
                 socket.leave(socket.boardId);
                 socket.boardId = '';
@@ -16,16 +16,23 @@ function connectSockets(io) {
             console.log(userName + ' left board')
             socket.user = null;
         })
-        socket.on('update board', () => {
-            socket.to(socket.boardId).emit('update board')
+        socket.on('updateBoard', () => {
+            socket.to(socket.boardId).emit('updateBoard')
         });
-        socket.on('enter board', boardId => {
+
+        socket.on('boardName', name => socket.to(socket.boardId).emit('boardName', name));
+        socket.on('listName', data => socket.to(socket.boardId).emit('listName', data));
+        socket.on('removeBoardMember', id => socket.to(socket.boardId).emit('removeBoardMember', id));
+        socket.on('addBoardMember', id => socket.to(socket.boardId).emit('addBoardMember', id));
+        socket.on('removeBoard', id => socket.broadcast.emit('removeBoard', id));
+
+        socket.on('enterBoard', boardId => {
             if (socket.boardId) {
                 socket.leave(socket.boardId);
             }
             socket.join(boardId);
             socket.boardId = boardId;
-            io.to(boardId).emit('user entered board', socket.user)
+            io.to(boardId).emit('enterBoard', socket.user)
         });
         socket.on('disconnect', () => {
             console.log('user disconnected');
