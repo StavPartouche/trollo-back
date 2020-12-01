@@ -7,6 +7,6 @@ router.get('/', getBoards)
 router.get('/:id', getBoard)
 router.post('/', saveBoard)
 router.put('/:id', saveBoard)
-router.delete('/:id',  requireAuth, deleteBoard) 
+router.delete('/:id', deleteBoard) 
 
 module.exports = router
