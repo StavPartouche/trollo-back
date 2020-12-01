@@ -20,8 +20,9 @@ function connectSockets(io) {
             socket.to(socket.boardId).emit('updateBoard')
         });
 
-        socket.on('boardName', name => socket.to(socket.boardId).emit('boardName', name));
-        socket.on('listName', data => socket.to(socket.boardId).emit('listName', data));
+        socket.on('boardName', name => {console.log('boardddd'); socket.to(socket.boardId).emit('boardName', name)});
+        socket.on('listName', data => {
+            console.log('listtt'); socket.to(socket.boardId).emit('listName', data)});
         socket.on('removeBoardMember', id => socket.to(socket.boardId).emit('removeBoardMember', id));
         socket.on('addBoardMember', id => socket.to(socket.boardId).emit('addBoardMember', id));
         socket.on('removeBoard', id => socket.broadcast.emit('removeBoard', id));
