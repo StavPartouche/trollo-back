@@ -16,9 +16,6 @@ function connectSockets(io) {
             console.log(userName + ' left board')
             socket.user = null;
         })
-        socket.on('updateBoard', () => {
-            socket.to(socket.boardId).emit('updateBoard')
-        });
 
         socket.on('boardName', data => socket.to(socket.boardId).emit('boardName', {type: 'boardName', data}));
         socket.on('removeBoardMember', data => socket.to(socket.boardId).emit('removeBoardMember', {type: 'removeBoardMember', data}));
@@ -45,7 +42,7 @@ function connectSockets(io) {
         socket.on('comment', data => socket.broadcast.emit('comment', {type: 'comment', data}));
         socket.on('label', data => socket.broadcast.emit('label', {type: 'label', data}));
         socket.on('taskColor', data => socket.broadcast.emit('taskColor', {type: 'taskColor', data}));
-        // socket.on('activity', data => socket.broadcast.emit('activity', {type: 'activity', data}));
+        socket.on('log', data => socket.broadcast.emit('log', {type: 'log', data}));
 
         socket.on('enterBoard', boardId => {
             if (socket.boardId) {
