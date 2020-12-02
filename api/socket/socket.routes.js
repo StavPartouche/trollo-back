@@ -24,8 +24,10 @@ function connectSockets(io) {
         socket.on('removeBoardMember', data => socket.to(socket.boardId).emit('removeBoardMember', {type: 'removeBoardMember', data}));
         socket.on('addBoardMember', data => socket.to(socket.boardId).emit('addBoardMember', {type: 'addBoardMember', data}));
         socket.on('boardDesc', data => socket.to(socket.boardId).emit('boardDesc', {type: 'boardDesc', data}));
-        socket.on('removeBoard', data => socket.broadcast.emit('removeBoard', {type: 'removeBoard', data}));
+        socket.on('removeBoard', data => socket.broadcast.emit('removeBoard', {type: 'removeBoard'}));
+        socket.on('addBoard', data => socket.broadcast.emit('addBoard', {type: 'addBoard'}));
         socket.on('boardStyle', data => socket.broadcast.emit('boardStyle', {type: 'boardStyle', data}));
+        socket.on('dragInBoard', data => socket.broadcast.emit('dragInBoard', {type: 'dragInBoard', data}));
         socket.on('removeList', data => socket.broadcast.emit('removeList', {type: 'removeList', data}));
         socket.on('addList', data => socket.broadcast.emit('addList', {type: 'addList', data}));
         socket.on('listName', data => socket.to(socket.boardId).emit('listName', {type: 'listName', data}));
