@@ -7,6 +7,14 @@ function connectSockets(io) {
             socket.user = user;
             console.log(socket.user.userName + ' connected')
         })
+        socket.on('enterBoard', boardId => {
+            if (socket.boardId) {
+                socket.leave(socket.boardId);
+            }
+            socket.join(boardId);
+            socket.boardId = boardId;
+            io.to(boardId).emit('enterBoard', socket.user)
+        });
         socket.on('leaveBoard', () => {
             if (socket.boardId) {
                 socket.leave(socket.boardId);
@@ -17,41 +25,15 @@ function connectSockets(io) {
             socket.user = null;
         })
 
-        socket.on('boardName', data => socket.to(socket.boardId).emit('boardName', {type: 'boardName', data}));
-        socket.on('removeBoardMember', data => socket.to(socket.boardId).emit('removeBoardMember', {type: 'removeBoardMember', data}));
-        socket.on('addBoardMember', data => socket.to(socket.boardId).emit('addBoardMember', {type: 'addBoardMember', data}));
-        socket.on('boardDesc', data => socket.to(socket.boardId).emit('boardDesc', {type: 'boardDesc', data}));
-        socket.on('removeBoard', data => socket.broadcast.emit('removeBoard', {type: 'removeBoard'}));
-        socket.on('addBoard', data => socket.broadcast.emit('addBoard', {type: 'addBoard'}));
-        socket.on('boardStyle', data => socket.broadcast.emit('boardStyle', {type: 'boardStyle', data}));
-        socket.on('dragInBoard', data => socket.broadcast.emit('dragInBoard', {type: 'dragInBoard', data}));
-        socket.on('removeList', data => socket.broadcast.emit('removeList', {type: 'removeList', data}));
-        socket.on('addList', data => socket.broadcast.emit('addList', {type: 'addList', data}));
-        socket.on('listName', data => socket.to(socket.boardId).emit('listName', {type: 'listName', data}));
-        socket.on('checkListItem', data => socket.to(socket.boardId).emit('checkListItem', {type: 'checkListItem', data}));
-        socket.on('checkList', data => socket.to(socket.boardId).emit('checkList', {type: 'checkList', data}));
-        socket.on('addTask', data => socket.broadcast.emit('addTask', {type: 'addTask', data}));
-        socket.on('removeTask', data => socket.broadcast.emit('removeTask', {type: 'removeTask', data}));
-        socket.on('taskMember', data => socket.broadcast.emit('taskMember', {type: 'taskMember', data}));
-        socket.on('taskDueDate', data => socket.broadcast.emit('taskDueDate', {type: 'taskDueDate', data}));
-        socket.on('taskName', data => socket.broadcast.emit('taskName', {type: 'taskName', data}));
-        socket.on('taskDesc', data => socket.broadcast.emit('taskDesc', {type: 'taskDesc', data}));
-        socket.on('uploadImg', data => socket.broadcast.emit('uploadImg', {type: 'uploadImg', data}));
-        socket.on('attachment', data => socket.broadcast.emit('attachment', {type: 'attachment', data}));
-        socket.on('previewImg', data => socket.broadcast.emit('previewImg', {type: 'previewImg', data}));
-        socket.on('comment', data => socket.broadcast.emit('comment', {type: 'comment', data}));
-        socket.on('label', data => socket.broadcast.emit('label', {type: 'label', data}));
-        socket.on('taskColor', data => socket.broadcast.emit('taskColor', {type: 'taskColor', data}));
-        socket.on('log', data => socket.broadcast.emit('log', {type: 'log', data}));
+        const boardEditEvs = ['boardName', 'removeBoardMember', 'addBoardMember', 'boardDesc', 'removeBoard',
+            'addBoard', 'boardStyle', 'dragInBoard', 'removeList', 'addList', 'listName', 'checkListItem', 'checkList',
+            'addTask', 'removeTask', 'taskMember', 'taskDueDate', 'taskName', 'taskDesc', 'uploadImg', 'attachment',
+            'previewImg', 'comment', 'label', 'taskColor', 'log'];
 
-        socket.on('enterBoard', boardId => {
-            if (socket.boardId) {
-                socket.leave(socket.boardId);
-            }
-            socket.join(boardId);
-            socket.boardId = boardId;
-            io.to(boardId).emit('enterBoard', socket.user)
-        });
+        boardEditEvs.forEach(ev => {
+            socket.on(ev, data => socket.to(socket.boardId).emit(ev, {type: ev, data}))
+        })
+
         socket.on('disconnect', () => {
             console.log('user disconnected');
         });
