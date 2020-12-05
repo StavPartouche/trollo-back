@@ -41,7 +41,6 @@ const userRoutes = require('./api/user/user.routes');
 const boardRoutes = require('./api/board/board.routes');
 const connectSockets = require('./api/socket/socket.routes');
 
-// HEROKU TEST
 // routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
