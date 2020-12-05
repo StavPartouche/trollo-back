@@ -2,11 +2,11 @@
   "name": "trollo-back",
   "version": "1.0.0",
   "description": "production ready server",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "set NODE_ENV=development & nodemon app.js",
-    "server:dev": "set NODE_ENV=development & nodemon app.js",
-    "server:prod": "node app.js"
+    "start": "set NODE_ENV=development & nodemon server.js",
+    "server:dev": "set NODE_ENV=development & nodemon server.js",
+    "server:prod": "node server.js"
   },
   "keywords": [],
   "author": "",
