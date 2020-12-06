@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.4168c66e4d2721bb767d9c5c3e51cd5c.js"
+  "/precache-manifest.aacbbc8fdcb6043263dce4318525938a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "trollo"});
