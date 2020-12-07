@@ -25,14 +25,22 @@ function connectSockets(io) {
             socket.user = null;
         })
 
-        const boardEditEvs = ['boardName', 'removeBoardMember', 'addBoardMember', 'boardDesc', 'removeBoard',
-            'addBoard', 'boardStyle', 'dragInBoard', 'removeList', 'addList', 'listName', 'checkListItem', 'checkList',
+        socket.on('boardList', () => {
+            socket.join('boardList');
+            socket.boardId = 'boardList';
+        })
+
+        const boardEditEvs = ['boardName', 'removeBoardMember', 'addBoardMember', 'boardDesc',
+             'boardStyle', 'dragInBoard', 'removeList', 'addList', 'listName', 'checkListItem', 'checkList',
             'addTask', 'removeTask', 'taskMember', 'taskDueDate', 'taskName', 'taskDesc', 'uploadImg', 'attachment',
             'previewImg', 'comment', 'label', 'taskColor', 'log'];
 
         boardEditEvs.forEach(ev => {
             socket.on(ev, data => socket.to(socket.boardId).emit(ev, {type: ev, data}))
         })
+
+        socket.on('removeBoard', () => socket.to('boardList').emit('removeBoard'))
+        socket.on('addBoard', () => socket.to('boardList').emit('addBoard'))
 
         socket.on('disconnect', () => {
             console.log('user disconnected');
