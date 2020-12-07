@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "439025b9c2caf61ef717",
-    "url": "/css/app.c35d015d.css"
+    "revision": "b3982e00c441aefe7ec9",
+    "url": "/css/app.36bba93c.css"
   },
   {
     "revision": "3ab76e8504fb3b658d9f",
@@ -148,6 +148,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/desk8.dd99bd80.jpg"
   },
   {
+    "revision": "c4b6af1755a6c39cf690a9f4e056f327",
+    "url": "/img/desk9.c4b6af17.jpg"
+  },
+  {
     "revision": "2f12242375edd68e9013ecfb59c672e9",
     "url": "/img/fa-brands-400.2f122423.svg"
   },
@@ -180,12 +184,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/track.352f7017.svg"
   },
   {
-    "revision": "e58734aed6b3616c98e7eaf64163e626",
+    "revision": "4b235da8228f9ed8a6898a1b48cc49e2",
     "url": "/index.html"
   },
   {
-    "revision": "439025b9c2caf61ef717",
-    "url": "/js/app.3ff80355.js"
+    "revision": "b3982e00c441aefe7ec9",
+    "url": "/js/app.cb8ed30d.js"
   },
   {
     "revision": "3ab76e8504fb3b658d9f",
