@@ -47,6 +47,13 @@ app.use('/api/user', userRoutes);
 app.use('/api/board', boardRoutes);
 connectSockets(io);
 
+// app.get("/service-worker.js", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "public", "service-worker.js"));
+//     res.writeHead(201, {
+//         'Content-Type': 'application/javascript'
+//     });
+//   });
+
 app.get('/**', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
