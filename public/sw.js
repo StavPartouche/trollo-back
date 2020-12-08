@@ -1,18 +1,21 @@
 const cacheName = 'trollo-cache'
 
+const urlsToCache = [
+    // '/',
+    // '/board',
+    // '/board/sw.js',
+    // '/login',
+    // '/main.js',
+    'index.html',
+    '../main.js'
+];
 self.addEventListener('install', e => {
     console.log('Service Worker: Installed');
-    const urlsToCache = [
-        '/',
-        '/board',
-        '/board/:id',
-        '/login',
-        '/main.js',
-    ];
     e.waitUntil(
         caches.open(cacheName).then(cache => {
-            return cache.addAll(urlsToCache)
+            cache.addAll(urlsToCache)
         })
+        .then(() => self.skipWaiting())
     );
 });
 
