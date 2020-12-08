@@ -3,7 +3,7 @@ const cacheName = 'trollo-cache'
 const urlsToCache = [
     '/',
     '/board',
-    '/board/Lid',
+    '/board/:id',
     '/login',
     // '/main.js',
     // 'index.html',
