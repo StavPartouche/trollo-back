@@ -1,13 +1,13 @@
 const cacheName = 'trollo-cache'
 
 const urlsToCache = [
-    // '/',
-    // '/board',
-    // '/board/sw.js',
-    // '/login',
+    '/',
+    '/board',
+    '/board/Lid',
+    '/login',
     // '/main.js',
-    'index.html',
-    '../main.js'
+    // 'index.html',
+    // '../main.js'
 ];
 self.addEventListener('install', e => {
     console.log('Service Worker: Installed');
